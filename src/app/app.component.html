@@ -1,0 +1,56 @@
+<simple-notifications [options]="notificationOptions"></simple-notifications>
+
+<div id="wrapper" *ngIf="loggedIn()">
+
+  <!--begin header menu top-->
+  <div id="header" class="clearfix top-menu">
+
+    <a href="#" class="logo">
+      <img alt="Shifts" src="../assets/img/logo-shifts.png">
+    </a>
+
+    <nav>
+      <ul>
+        <li class="nav-item" *ngIf ="loggedUser.role.name=='SuperAdmin'">
+          <a class="nav-link" routerLink="locations" routerLinkActive="active">Sitios</a>
+        </li>
+        <li class="nav-item" *ngIf ="loggedUser.role.name=='Admin'||loggedUser.role.name=='SuperAdmin'">
+          <a class="nav-link" routerLink="categories" routerLinkActive="active">Áreas</a>
+        </li>
+        <li class="nav-item" *ngIf ="loggedUser.role.name=='Admin'||loggedUser.role.name=='SuperAdmin'||loggedUser.role.name=='Jefe'">
+          <a class="nav-link" routerLink="persons" routerLinkActive="active">Personas</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " routerLink="schedules" routerLinkActive="active">Calendarios</a>
+        </li>
+        <!--<li class="nav-item">
+          <a class="nav-link" [routerLink]="['./schedules']" [routerLinkActive]="['nav-active']">Schedules</a>
+        </li>-->
+      </ul>
+    </nav>
+
+    <div class="nameUser">
+      <div class="info-user clearfix">
+        <span class="fa fa-user-o icon" aria-hidden="true"> </span>
+        <strong class="textNameUser">{{loggedUser.firstname}}<br />{{loggedUser.lastname}}</strong>
+        <button type="button" class="btn btn-default" (click)="onLogout()" title="Cerrar sesión">
+          <i class="fa fa-sign-out" aria-hidden="true"></i>
+        </button>
+      </div>
+        <span class="skewbar skew01"></span>
+        <span class="skewbar skew02"></span>
+        <span class="skewbar skew03"></span>
+    </div>
+  </div>
+  <!--end header menu top-->
+
+
+  <div id="content">
+    <div class="content-inner" [ngClass]="{'displace': nav == true}">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+  <footer class="row footer"></footer>
+</div>
+
+<login *ngIf="!loggedIn()" (login)="onLogin($event)"></login>

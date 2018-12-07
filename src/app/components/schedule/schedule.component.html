@@ -1,0 +1,326 @@
+<!--category section-->
+<div class="container clearfix schelude-section">
+  <div class="top-control clearfix">
+    <form>
+      <!--Location selector-->
+      <div class="selector site-sel floatLeft">
+          <mat-form-field  *ngIf ="userLog.role.name==ROLES.SUPER_ADMIN">
+            <mat-select placeholder="Todos los sitios" panelClass="top-select" name="locationSelector" #locationSelector="ngModel" [(ngModel)]="searchQuery.locationId" (ngModelChange)="getPersonsSchedules(searchQuery)">
+              <mat-option [value]="null">Todos los sitios</mat-option>
+              <mat-option *ngFor="let location of locations" [value]="location._id">
+                {{ location.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <h3 class="name-sel" *ngIf ="userLog.role.name!=ROLES.SUPER_ADMIN">{{userLog.location.name}}</h3>
+      </div>
+      <!--Category Selector-->
+      <div class="selector cat-sel floatLeft">
+        <mat-form-field *ngIf ="userLog.role.name==ROLES.SUPER_ADMIN || userLog.role.name==ROLES.ADMIN">
+          <mat-select placeholder="Todas las categorías" panelClass="top-select" name="categorySelector" #categorySelector="ngModel" [(ngModel)]="searchQuery.categoryId" (ngModelChange)="getPersonsSchedules(searchQuery)">
+            <mat-option [value]="null">Todos las categorías</mat-option>
+            <mat-option *ngFor="let category of categories" [value]="category._id">
+              {{ category.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <h3 class="name-sel" *ngIf ="userLog.role.name==ROLES.BOSS">{{userLog.category.name}}</h3>
+      </div>
+      <!--week selector calendar-->
+      <div  class="select-box floatLeft weekselector"  id="weekSelectBox" *ngIf="!isDaySelected">
+        <dp-date-picker #weekPicker weekSelector [config]="datePickerConfigWeek"  (onChange)="onSelectDate($event)" name="weekPicker" [(ngModel)]="datePicked"></dp-date-picker>
+      </div>
+      <!--day selector calendar-->
+      <div class="select-box floatLeft daySelector" id="daySelectBox" *ngIf="isDaySelected">
+        <dp-date-picker #dayPicker [config]="datePickerConfig" (onChange)="onSelectDate($event)" name="dayPicker" [(ngModel)]="datePicked"></dp-date-picker>
+      </div>
+      <div class="check-day-weekly floatLeft">
+          <div class="swicth-active-user week">
+            <input id="checkboxDay" type="checkbox" name="active" value="active" checked (change)="isDaySelected = !isDaySelected">
+            <label for="checkboxDay" [ngClass]="isDaySelected ? 'day': 'week'"><span class="week-span">Semana</span> <span class="day-span">Día</span> </label>
+          </div>
+      </div>
+    </form>
+
+    <div class="report-check floatRight" [ngClass]="isDaySelected ? 'day': 'week'">
+          <div class="swicth-active-user">
+            <input id="reportCheck" type="checkbox" name="active" value="active" (change)="reportOpen = !reportOpen">
+            <label for="reportCheck" class="report-check-label" >Reporte</label>
+          </div>
+    </div>
+  </div>
+  <div class="info-legends clearfix">
+      <p><span class="bgrecargoNoc"></span>R. Noct.</p>
+      <p><span class="bgDomingoFestivo"></span>R. Dom./vFest.</p>
+      <p><span class="bgRecargoNocDomFes"></span>R. Noct. D/F</p>
+      <p><span class="bgExtraDiurna"></span>E. Dna.</p>
+      <p><span class="bgExtraNocturna"></span>E. Noct.</p>
+      <p><span class="bgExtDiurnaDomFes"></span>E. Dna. D/F</p>
+      <p><span class="bgExtNocDomFes"></span>E. Noct. D/F</p>
+      <p><span class="bgnormalHours"></span>Horas</p>
+  </div>
+
+  <!--begin view day-->
+  <div class="content-box time-daily clearfix" *ngIf="isDaySelected">
+    <div class="clearfix titles-daily-view">
+      <div class="floatLeft title-one">
+        <p>Empleado</p>
+      </div>
+      <div class="floatLeft">
+        <p>Horario</p>
+      </div>
+      <div class="floatRight">
+        <p>T.</p>
+      </div>
+    </div>
+    <div *ngFor="let person of personsSchedules; let i = index" class="time-slider-box-daily clearfix">
+
+      <!--begin user info daily-->
+      <div class="floatLeft user-info-daily">
+        <a href="#" (click)="onNewSchedule(person); false">
+          <span class="icon-user floatLeft">
+            <span class="fa fa-user-circle" aria-hidden="true"></span>
+          </span>
+          <span class="user-name-box floatLeft">
+            <span class="nameUser"><span class="ellipsis-text">{{person.firstname}} {{person.lastname}}</span> <i class="fa fa-plus-square-o" aria-hidden="true"></i></span><br />
+            <span class="occupationUser">{{person.occupation}}</span>
+          </span>
+        </a>
+      </div>
+      <!--end user info daily-->
+
+      <div class="time-slider-hour-box floatLeft clearfix">
+        <div class="time-marks" *ngIf="i==0">
+          <p>12am</p><p>1am</p><p>2am</p><p>3am</p><p>4am</p><p>5am</p><p>6am</p><p>7am</p><p>8am</p><p>9am</p><p>10am</p><p>11am</p><p>12m</p><p>1pm</p><p>2pm</p><p>3pm</p><p>4pm</p><p>5pm</p><p>6pm</p><p>7pm</p><p>8pm</p><p>9pm</p><p>10pm</p><p>11pm</p>
+        </div>
+
+        <div class="meterHours clearfix"
+          *ngFor="let schedule of person.schedules"
+          [ngClass]="'pos'+(schedule.initHour*2)"
+          (click)="editSchedulebyPerson(schedule, person)">
+
+          <span class="halfHour"
+                *ngFor="let hours of schedule.arrayHours;let iHH = index; let first = first; let last = last"
+                [ngClass]="{
+                  'bgnormalHours': hours == 1,
+                  'bgrecargoNoc' : hours == 2,
+                  'bgDomingoFestivo' : hours == 3,
+                  'bgRecargoNocDomFes' : hours == 4,
+                  'bgExtraDiurna' : hours == 5,
+                  'bgExtraNocturna' : hours == 6,
+                  'bgExtDiurnaDomFes' : hours == 7,
+                  'bgExtNocDomFes' : hours == 8,
+                  first: first,
+                  last: last,
+                  'hiddenHours' : checkLimitHalfHours(schedule, iHH)
+                }">
+          </span>
+
+          <div class="time-info">
+            <p>Hora de inicio: {{convertToHours(schedule.initHour)}} hrs.</p>
+            <p>Hora finalización: {{getInfoTime(schedule)}} hrs.</p>
+            <p>Duración: {{schedule.duration}} hrs.</p>
+
+            <p *ngIf="schedule.normalHours">
+              <span class="bgnormalHours"></span> Hora normales: {{schedule.normalHours}}
+            </p>
+            <p *ngIf="schedule.surchargeNocturnal">
+              <span class="bgrecargoNoc"></span> Recargo Nocturno: {{schedule.surchargeNocturnal}}
+            </p>
+            <p *ngIf="schedule.surchargeHolidayDiurnal">
+              <span class="bgDomingoFestivo"></span> Dominical/Festivo: {{schedule.surchargeHolidayDiurnal}}
+            </p>
+            <p *ngIf="schedule.surchargeHolidayNocturnal">
+              <span class="bgRecargoNocDomFes"></span> Dominical/Festivo Nocturno: {{schedule.surchargeHolidayNocturnal}}
+            </p>
+            <p *ngIf="schedule.extraDiurnal">
+              <span class="bgExtraDiurna"></span> Extra Diurna: {{schedule.extraDiurnal}}
+            </p>
+            <p *ngIf="schedule.extraNocturnal">
+              <span class="bgExtraNocturna"></span> Extra Nocturna: {{schedule.extraNocturnal}}
+            </p>
+            <p *ngIf="schedule.extraHolidayDiurnal">
+              <span class="bgExtDiurnaDomFes"></span> Extra Diurna Dominical/Festiva: {{schedule.extraHolidayDiurnal}}
+            </p>
+            <p *ngIf="schedule.extraHolidayNocturnal">
+              <span class="bgExtNocDomFes"></span> Extra Nocturna Dominical/Festiva: {{schedule.extraHolidayNocturnal}}
+            </p>
+
+          </div>
+        </div>
+
+
+
+      </div>
+      <div class="totalHour floatLeft">
+       <p>{{person.totalHours}}</p>
+      </div>
+    </div>
+  </div>
+  <!--end view day-->
+
+  <!--begin week view-->
+  <div class="content-box time-weekly clearfix" *ngIf="!isDaySelected" [ngClass]="reportOpen ? 'open-report': ''">
+
+    <!--begin week view hours-->
+    <div class="week-box clearfix floatLeft ">
+      <div class="controls-weeks">
+      </div>
+      <div class="days-week-box">
+        <!--begin days of week-->
+        <div class="day-box">
+          <div class="day-name">
+            <h2>Lunes</h2>
+          </div>
+          <div class="hours-day clearfix">
+            <div class="hours-week-marks">
+              <p>12am</p><p>1am</p><p>2am</p><p>3am</p><p>4am</p><p>5am</p><p>6am</p><p>7am</p><p>8am</p><p>9am</p><p>10am</p><p>11am</p><p>12m</p><p>1pm</p><p>2pm</p><p>3pm</p><p>4pm</p><p>5pm</p><p>6pm</p><p>7pm</p><p>8pm</p><p>9pm</p><p>10pm</p><p>11pm</p>
+            </div>
+          <app-day-box [personsSchedules]="personsSchedules" [dayOfWeek]="'lunes'" (selectSchedule)="onSelectSchedule($event)"></app-day-box>
+          </div>
+        </div>
+        <div class="day-box">
+          <div class="day-name">
+            <h2>Martes</h2>
+          </div>
+          <app-day-box [personsSchedules]="personsSchedules" [dayOfWeek]="'martes'" (selectSchedule)="onSelectSchedule($event)"></app-day-box>
+        </div>
+        <div class="day-box">
+          <div class="day-name">
+            <h2>Miércoles</h2>
+          </div>
+          <app-day-box [personsSchedules]="personsSchedules" [dayOfWeek]="'miércoles'" (selectSchedule)="onSelectSchedule($event)"></app-day-box>
+        </div>
+        <div class="day-box">
+          <div class="day-name">
+            <h2>Jueves</h2>
+          </div>
+          <app-day-box [personsSchedules]="personsSchedules" [dayOfWeek]="'jueves'" (selectSchedule)="onSelectSchedule($event)"></app-day-box>
+        </div>
+        <div class="day-box">
+          <div class="day-name">
+            <h2>Viernes</h2>
+          </div>
+          <app-day-box [personsSchedules]="personsSchedules" [dayOfWeek]="'viernes'" (selectSchedule)="onSelectSchedule($event)"></app-day-box>
+        </div>
+        <div class="day-box">
+          <div class="day-name">
+            <h2>Sábado</h2>
+          </div>
+          <app-day-box [personsSchedules]="personsSchedules" [dayOfWeek]="'sábado'" (selectSchedule)="onSelectSchedule($event)"></app-day-box>
+        </div>
+        <div class="day-box">
+          <div class="day-name">
+            <h2>Domingo</h2>
+          </div>
+          <app-day-box [personsSchedules]="personsSchedules" [dayOfWeek]="'domingo'" (selectSchedule)="onSelectSchedule($event)"></app-day-box>
+        </div>
+
+        <!--end days of week-->
+      </div>
+    </div>
+    <!--end week view hours-->
+
+    <!--begin week report view-->
+    <div class="user-total-hours-box clearfix floatLeft" >
+        <div class="hours-box">
+          <div class="info-top-report clearfix">
+            <div class="col-user floatLeft"> Empleado</div>
+            <div class="col-info floatLeft"><span class="dot bgrecargoNoc"></span><span class="text">Recargo Nocturno</span></div>
+            <div class="col-info floatLeft"><span class="dot bgDomingoFestivo"></span><span class="text">Recargo Dominical/festivo</span></div>
+            <div class="col-info floatLeft"><span class="dot bgRecargoNocDomFes"></span><span class="text">Recargo Nocturno Dominical/Festivo</span></div>
+            <div class="col-info floatLeft"><span class="dot bgExtraDiurna"></span><span class="text">Extra Diurna</span></div>
+            <div class="col-info floatLeft"><span class="dot bgExtraNocturna"></span><span class="text">Extra Nocturna</span></div>
+            <div class="col-info floatLeft"><span class="dot bgExtDiurnaDomFes"></span><span class="text">Extra Diurna Festiva/Dominical</span></div>
+            <div class="col-info floatLeft"><span class="dot bgExtNocDomFes"></span><span class="text">Extra Nocturna Festiva/Dominical</span></div>
+            <div class="col-info floatLeft"><span class="dot bgnormalHours"></span><span class="text">Hora Normal</span></div>
+            <div class="col-total floatLeft">T.</div>
+          </div>
+
+          <div *ngFor="let person of personsSchedules" class="clearfix content-report">
+            <div class="col-user floatLeft">
+              <p id="{{person.personColor}}" (click)="onNewSchedule(person)" (mouseenter)="onMouseEnterWeek(person)" (mouseleave)="onMouseLeaveWeek(person)" [ngClass]="'personColor'+person._id">
+                <span class="icon-user floatLeft">
+                  <span class="fa fa-user-circle" aria-hidden="true"></span>
+                </span>
+                <span class="floatLeft">
+                  <span class="nameUser">{{person.firstname}} {{person.lastname}} <i class="fa fa-plus-square-o" aria-hidden="true"></i></span> <br />
+                  <span class="occupationUser">{{person.occupation}}</span>
+                </span>
+              </p>
+            </div>
+            <div class="col-info floatLeft">{{person.surchargeNocturnal}}</div>
+            <div class="col-info floatLeft">{{person.surchargeHolidayDiurnal}}</div>
+            <div class="col-info floatLeft">{{person.surchargeHolidayNocturnal}}</div>
+            <div class="col-info floatLeft">{{person.extraDiurnal}}</div>
+            <div class="col-info floatLeft">{{person.extraNocturnal}}</div>
+            <div class="col-info floatLeft">{{person.extraHolidayDiurnal}}</div>
+            <div class="col-info floatLeft">{{person.extraHolidayNocturnal}}</div>
+            <div class="col-info floatLeft">{{person.normalHours}}</div>
+            <div class="col-total floatLeft">{{person.totalHours}}</div>
+          </div>
+        </div>
+    </div>
+    <!--end week report view-->
+
+  </div>
+  <!--end week view-->
+</div>
+
+<!--overlay forms-->
+<div id="overlay" class="overlay show" *ngIf="overlay">
+  <div class="inner-box">
+    <h2 class="title-overlay">Editar Tiempo</h2>
+    <div class="form-new-element clearfix">
+      <div class="row-form">
+
+        <div class="clearfix">
+          <div class="icon-user floatLeft"><span class="fa fa-user-circle" aria-hidden="true"></span></div>
+          <div class="user-name-box floatLeft">
+            <span class="nameUser">{{personEditSchedule.firstname}} {{personEditSchedule.lastname}} </span><br />
+            <span class="occupationUser">{{personEditSchedule.occupation}}</span>
+          </div>
+        </div>
+
+        <!--begin form for added hours  normal schedule-->
+        <!--*ngFor="let scheduleFormEdit of personEditSchedule.schedules"-->
+        <div class="add-hours-form">
+          <div class="clearfix" >
+            <div class="form-field-input thirdField date-box">
+              <label for="dateHoursInput">Fecha</label>
+              <!--<input id="dateHoursInput" type="date" name="dateHoursInput" #dateHoursInput="ngModel" [ngModel]="scheduleDate | date:'yyyy-MM-dd'" (ngModelChange)="assignScheduleDate($event)"/>-->
+
+              <dp-date-picker #dateHoursInput [config]="datePickerConfigOverlay" #dateHoursInput="ngModel" [ngModel]="scheduleDate | date:'yyyy-MM-dd'" (onChange)="assignScheduleDate($event)"></dp-date-picker>
+            </div>
+            <div class="form-field-input thirdField time-box">
+              <label for="initHourInput">Hora de inicio</label>
+              <!--<input id="initHourInput" type="number" name="initHourInput" max="24" #initHourInput="ngModel" [(ngModel)]="schedule.initHour" required />-->
+              <dp-date-picker #initHourInput [config]="datePickerTime" mode="time" id="initHourInput" name="initHourInput"  #initHourInput="ngModel" [(ngModel)]="scheduleInitialHour"></dp-date-picker>
+            </div>
+            <div class="form-field-input thirdField time-box">
+              <label for="durationHours">Duración turno</label>
+              <dp-date-picker #durationHours [config]="datePickerTime" mode="time" id="durationHours" name="durationHours" #durationHours="ngModel" [(ngModel)]="scheduleDurationHour"></dp-date-picker>
+              <!--<input id="durationHours"  name="durationHours"  #durationHours="ngModel" [(ngModel)]="schedule.duration" [dpDayPicker]="datePickerTime" mode='time' required />-->
+              <!--<dp-time-select [(ngModel)]="selectedDateHours" [config]="datePickerTime" mode="time"></dp-time-select>-->
+              <!--<input id="durationHours" type="number" name="durationHours" max="24"  #durationHours="ngModel" [(ngModel)]="schedule.duration" required />-->
+            </div>
+          </div>
+        </div>
+        <!--end form for added hours  normal schedule-->
+      </div>
+      <div class="row-form text-right" style="display: none;">
+        <a href="#" (click)="false" class="add-form-hours">añadir turno <i class="fa fa-plus-square-o" aria-hidden="true"></i></a>
+      </div>
+
+      <div class="buttons clearfix">
+        <button class="btn btn-color-grey" (click)="closeOverlay();cleanObject(schedule)">
+          <i class="fa fa-times" aria-hidden="true"></i> Cancelar
+        </button>
+        <button class="btn btn-color-green" (click)="validateScheduleHours(schedule)">
+          <i class="fa fa-plus" aria-hidden="true"></i> Editar tiempo
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div>

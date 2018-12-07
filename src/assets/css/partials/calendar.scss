@@ -1,0 +1,219 @@
+.dp-picker-input,
+.day-select,
+.week-select {
+    border: none transparent;
+    color: $bluegrey;
+    font-size: 19px;
+    font-weight: 700;
+    height: 20px;
+    width: 260px;
+    text-transform: capitalize;
+
+    &:focus {
+        outline: none transparent;
+    }
+}
+
+
+.dp-input-container {
+    margin-right: 20px;
+    position: relative;
+    
+
+    .weekselector &{
+        width: 280px;
+    }
+    .daySelector &{
+        width: 205px;
+    }
+
+    &:after {
+        content: "\f133";
+        font-family: FontAwesome;
+        font-style: normal;
+        font-weight: normal;
+        text-decoration: inherit;
+        color: $dark-green;
+        font-size: 14px;
+        position: absolute;
+        top: 4px;
+        right: 0;
+    }
+}
+
+.dp-popup {
+    background-color: $white;
+    border-radius: 5px;
+    border: 1px solid $black-opacity-10;
+    padding: 0;
+    overflow: hidden;
+    z-index: 7;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.04), 0 6px 20px 0 rgba(0, 0, 0, 0.05);
+}
+
+.dp-day-calendar-container,
+.dp-month-calendar-container {
+    .dp-current-location-btn {
+        display: none;
+    }
+
+    .dp-calendar-wrapper {
+        border: none transparent;
+    }
+
+    .dp-calendar-nav-container {
+        background-color: $green;
+        border: none transparent;
+        color: $white;
+        height: 50px;
+
+        .dp-nav-header {
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 8;
+
+            .dp-nav-header-btn {
+                background-color: transparent;
+                border: none transparent;
+                color: $white;
+                font-size: 24px;
+                font-weight: 700;
+            }
+        }
+
+        .dp-nav-btns-container {
+            height: 100%;
+            right: auto;
+            transform: translate(0, 0);
+            top: 0;
+            width: 100%;
+
+            .dp-calendar-nav-container-left {
+                top: 34%;
+                left: 5px;
+                position: absolute;
+
+                .dp-calendar-nav-left {
+                    background-color: transparent;
+                    border: none transparent;
+                    width: 20px;
+
+                    &:before {
+                        border-color: $white;
+                    }
+                }
+            }
+
+            .dp-calendar-nav-container-right {
+                top: 35%;
+                right: 5px;
+                position: absolute;
+
+                .dp-calendar-nav-right {
+                    background-color: transparent;
+                    border: none transparent;
+                    width: 20px;
+
+                    &:before {
+                        border-color: $white;
+                        margin-left: -5px;
+                    }
+                }
+            }
+        }
+    }
+
+    .dp-calendar-weekday {
+        border: none transparent;
+        color: $bluegrey;
+        font-size: 10px;
+    }
+
+    .dp-calendar-day {
+        background: transparent;
+        border: none transparent;
+        color: $bluegrey;
+        font-family: 'Roboto', sans-serif;
+        font-size: 10px;
+        border-radius: 15px;
+        height: 20px;
+
+        &.dp-selected {
+            background-color: $green;
+            border-radius: 15px;
+            color: $white;
+        }
+    }
+
+    .dp-calendar-wrapper {
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+
+    .dp-calendar-month {
+        background: transparent;
+        border: none transparent;
+        color: $bluegrey;
+        font-family: 'Roboto', sans-serif;
+        font-size: 11px;
+        font-weight: 700;
+        border-radius: 15px;
+        margin-bottom: 5px;
+        height: 20px;
+
+        &.dp-selected,
+        &:hover {
+            background-color: $green;
+            border-radius: 15px;
+            color: $white;
+        }
+    }
+}
+
+.weekselector{
+    .dp-calendar-week{
+        position: relative;
+
+        &:hover > .dp-week-number{
+            background-color: $lighter-green-opacity-70;
+        }
+
+        .dp-week-number{
+            cursor: pointer;
+            position: absolute;            
+            height: 100%;
+            width: 100%;
+            display: block;
+            border-radius: 7px;
+            z-index: 1;
+            font-size: 0;
+
+            
+        }
+        .dp-calendar-day{
+            position: relative;
+            z-index: 5;
+
+            &.dp-selected{
+                background-color: transparent;
+                color: $bluegrey;
+            }
+        }
+    }
+}
+
+.check-day-weekly{
+    position: relative; 
+    width: 80px;
+
+    .swicth-active-user{
+        top: -4px;
+
+        label{
+            top: 1px;
+        }
+        input:checked+label{
+            top: 1px;
+        }
+    }
+}

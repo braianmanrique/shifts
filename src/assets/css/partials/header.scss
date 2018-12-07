@@ -1,0 +1,146 @@
+.top-menu{
+	background: url(../img/bgk-header.png) repeat-x bottom left $white;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.04), 0 6px 20px 0 rgba(0, 0, 0, 0.05);
+	position: relative;
+	z-index: 4;
+
+	.logo{
+		float: left;
+		height: 45px;
+		padding:0;
+		position: relative;
+		overflow: hidden;
+		width: 210px;
+
+		img{
+			height: auto;
+			margin: 7px 0 0 35px;
+			position:relative;
+			width: 100px;
+			z-index: 1;
+		}
+
+		&:after{
+			background:$green-opacity-5;
+			content: "";
+			display: block;
+		    height: 100%;
+			left: -21px;
+			position:absolute;
+			top: 0;
+			width: 100%;
+
+		    -webkit-transform: skew(-40deg);
+		    -moz-transform: skew(-40deg);
+		    transform: skew(-40deg);
+		}
+	}
+	nav{
+		float: left;
+		height: 45px;
+		position:relative;
+
+		.nav-item{
+			float: left;
+		}
+		.nav-link{
+			color: $darked-grey;
+			display: block;
+			font-size:16px;
+			font-weight: 500;
+			padding:14px 30px;
+			position:relative;
+			text-decoration: none;
+
+			&.nav-active,
+			&.active,
+			&:hover{
+				&:after{
+
+					@include linearGradientLeft($dark-green-opacity-90, $green-lime-opacity-90);
+
+					bottom: -1px;
+					content: "";
+					display: block;
+				    height: 8px;
+					left: 0;
+					position:absolute;
+					width: 100%;
+					z-index: 2;
+
+				    -webkit-transform: skew(-40deg);
+				    -moz-transform: skew(-40deg);
+				    transform: skew(-40deg);
+				}
+			}
+		}
+	}
+	.nameUser{
+		float: right;
+		height: 45px;
+		position:relative;
+		overflow: hidden;
+		width: 230px;
+
+		.info-user{
+			margin: 3px 0 0 80px;
+			position:relative;
+			z-index: 4;
+		}
+
+		.skewbar{
+			display: block;
+		    height: 100%;
+		    opacity: 0.93;
+			position:absolute;
+			top: 0;
+			width: 100%;
+
+		    -webkit-transform: skew(-40deg);
+		    -moz-transform: skew(-40deg);
+		    transform: skew(-40deg);
+
+		    &.skew01{
+		    	background:$darken-green;
+		    	left: 20px;
+		    	z-index: 1;
+		    }
+		    &.skew02{
+		    	background:$green;
+		    	left: 35px;
+		    	z-index: 2;
+		    }
+		    &.skew03{
+		    	background:$green-lime;
+		    	left: 60px;
+		    	z-index: 3;
+		    }
+		}
+
+		.icon{
+    		font-size: 23px;
+			float: left;
+   			margin: 7px 7px 0 0;
+		}
+		.textNameUser{
+		    font-size: 15px;
+		    font-weight: 500;
+			float: left;
+		    margin-top: 5px;
+		    width: 60%;
+		}
+		.btn{
+		    background: none transparent;
+			float: right;
+		    padding: 0;
+		    margin: 10px 10px 0 0;
+		    font-size: 21px;
+		    width: auto;
+
+		    &:hover{
+		    	color: $dark-green;
+		    }
+		}
+
+	}
+}

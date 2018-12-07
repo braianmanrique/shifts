@@ -1,0 +1,60 @@
+<!--category section-->
+<div class="container clearfix location-section">
+  <div class="location-box" *ngFor="let location of locations">
+    <div class="inner-box clearfix">
+      <a class="link-info clearfix">
+				<span class="vertical-aligment"><i class="fa fa-compass" aria-hidden="true"></i></span>
+				<span class="title-location">
+					 <span>
+					 	{{location.name}}
+					 </span>
+				 </span>
+			</a>
+      <a href="#" class="config" (click)="edit = true; openOverlay(location.name,location._id); false"><i class="fa fa-pencil-square-o" aria-hidden="true"></i><span class="tool-tip">Editar</span></a>
+    </div>
+  </div>
+
+  <!--add new location-->
+  <div class="location-box add-location">
+    <div class="inner-box clearfix">
+      <i class="fa fa-tags" aria-hidden="true"></i>
+      <a href="#" class="add-text clearfix" (click)="edit = false; openOverlay('','');  false">
+				<i class="fa fa-plus" aria-hidden="true"></i> <span>Nuevo Sitio</span>
+			</a>
+    </div>
+  </div>
+</div>
+
+<!--overlay forms-->
+<div id="overlay" class="overlay">
+  <form #locationForm="ngForm" (ngSubmit)="formLocation()">
+    <div class="inner-box">
+      <h2 class="title-overlay">
+        {{edit ? 'Editar Sitio' : 'Nuevo Sitio'}}
+      </h2>
+      <div class="form-new-element clearfix">
+        <div class="row-form" *ngIf="edit">
+          <label for="field01">Nombre anterior</label>
+          <div class="form-field-input">
+            <p>{{olderName}}</p>
+          </div>
+        </div>
+        <div class="row-form">
+          <label for="nameLocation">Nombre del sitio</label>
+          <div class="form-field-input fullsizeInput">
+            <input id="nameLocation" type="" name="nameLocation" #name="ngModel" [(ngModel)]="location.name" required/>
+          </div>
+        </div>
+        <div class="buttons clearfix">
+          <button type="button" class="btn btn-color-grey" (click)="closeOverlay()">
+						<i class="fa fa-times" aria-hidden="true"></i> Cancelar
+					</button>
+          <button type="submit" class="btn btn-color-green" [disabled]="!locationForm.form.valid">
+						<i class="fa fa-plus" aria-hidden="true"></i>
+            {{edit ? 'Actualizar' : 'Crear'}}
+					</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

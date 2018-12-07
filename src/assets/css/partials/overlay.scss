@@ -1,0 +1,232 @@
+.overlay{
+  background: $white-opacity-80;
+  bottom: 0;
+  display: none;
+  height: 100%;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 100%;
+  z-index: 2; 
+
+  &.show{
+    display: block
+  }
+
+  .inner-box{
+    background: $white;
+    border:2px solid $black-opacity-10;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.04), 0 6px 20px 0 rgba(0, 0, 0, 0.05);
+    display: block;
+    
+    left: 50%;
+    padding: 10px;
+    position:absolute;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    width: 480px;
+  }
+  .title-overlay{
+    color: $dark-grey;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 15px;
+  }
+  .info-form{
+    color: $grey-label;     
+    font-size: 13px;      
+    display: block;
+    margin-bottom: 15px;      
+    position:relative;
+    width: 100%;
+  }
+  .row-form{
+    &.text-right{
+      text-align: right;
+    }
+    label{
+      color: $grey-label;
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 10px;
+      width: 100%;
+    }
+    .icon-user{
+        font-size: 30px;
+        margin-right: 10px;
+    }
+    .user-name-box{
+        margin-bottom: 20px;
+        .nameUser{
+          font-size: 24px;
+        }
+        .occupationUser{
+          color: $darked-grey;
+          font-size: 14px;
+        }
+      }
+    .add-form-hours{
+      color: $green;
+      display: inline-block;
+      font-size: 14px;
+      font-weight: 300;
+      margin-bottom: 10px;
+      margin-right: 5px;
+      text-decoration: none;
+      text-align: right;
+
+      .fa{
+        font-size: 18px;
+        vertical-align: middle;
+      }
+    }    
+    .form-field-input{
+      display: block;
+      margin-bottom: 15px;      
+      position:relative;
+      width: 100%;
+
+      input, 
+      select{
+        border:1px solid $grey;
+        border-radius:5px;
+        box-sizing: border-box;
+        display: inline-block;
+        padding:3px;
+
+        transition: all 0.5s ease-out;
+      }
+
+      input[type=number]{
+          height: 28px;
+      } 
+
+      input:focus{
+        border-color:$emerald;
+        outline: none;
+      }
+
+      &.fullsizeInput{
+        input{
+          width: 100%;
+        }
+      }
+      &.thirdField{
+        float: left;
+        width: 33.333333%;
+
+        input{
+          width: 95%;
+        }
+
+        &:last-child{
+          input{
+            width: 97%;
+          }
+        }
+
+        &.date-box{
+          .dp-picker-input{
+            color: $black;
+            font-size: 13px;
+            font-weight: 700;
+          }
+          .dp-input-container{
+            margin-right: 0;
+            &:after{
+              content: "\f073";
+              font-size: 12px;
+              top: 4px;
+              right: 15px
+            }
+          }          
+        }
+        &.time-box{
+          .dp-picker-input{
+            color: $black;
+            font-size: 13px;
+            font-weight: 700;
+          }
+          .dp-input-container{
+            margin-right: 0;
+            &:after{
+              content: "\f017";
+              font-size: 12px;
+              top: 4px;
+              right: 15px
+            }
+          }          
+        
+          &+.time-box{
+           .dp-input-container{
+            &:after{
+              content: "\f251";
+            }
+           } 
+          }
+
+          .dp-time-select-controls{
+            width: 150px;
+          }
+          .dp-time-select-control-up,
+          .dp-time-select-control-down{
+            background: transparent;
+            border: none transparent;
+            outline: none transparent;
+
+            &:before{
+              border-color:$green;
+            }
+
+            &:hover:before{
+              border-color:$darken-green;
+            }
+          }
+        }
+      }
+      &.halfField{
+        box-sizing:border-box;
+        float: left;
+        width: 50%;
+
+        input, 
+        select{
+          width: 100%;
+        }
+
+        &.leftHalf{
+          padding-right:5px;
+        }
+        &.rightHalf{
+          padding-left:5px;
+        }
+      }
+      &.halfSizeInner{
+        input{
+          float: left;
+          width: 50%;
+          &:nth-child(odd){
+            border-radius:0 5px 5px 0;
+          }
+          &:nth-child(even){
+            border-radius:5px 0 0 5px;
+            border-right:none transparent;
+          }
+
+        }
+      }
+    }
+  }
+  .buttons{
+    margin-bottom: 5px;
+    margin-top: 5px;
+    text-align:right;
+
+    .btn{
+      margin-right: 5px;
+    } 
+  }
+}

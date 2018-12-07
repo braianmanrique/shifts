@@ -1,0 +1,154 @@
+.location-section{
+	text-align: left;
+}
+.location-box{
+	display: block;
+	padding:15px;
+	position: relative;
+	width:calc(25% - 31px);
+	float: left;
+
+	.inner-box{
+		background: $green-opacity-5;
+		border:2px solid $light-grey;
+		border-radius: 0;
+		/*overflow: hidden;*/
+		position: relative;
+		text-decoration:none; 
+		width: 100%;
+
+		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.04), 0 6px 20px 0 rgba(0, 0, 0, 0.05);
+
+		&:before{
+			background-color:  $green;
+			bottom: 0;
+			content: "";
+			height: 3px;
+			left: 50px;
+			transform: skew(-40deg);
+			position: absolute;
+			width: calc( 100% - 50px);
+		}
+
+		.link-info{
+			margin: 15px;
+			text-align:left; 
+			text-decoration:none;
+			width: auto;
+
+			transition: all 1s ease;
+
+			.fa{
+				color: $green;
+				display: inline-block;
+				font-size: 40px;
+    			margin: 0;
+    			//transform: rotate(26deg);
+			}
+			.vertical-aligment{
+				left: 5%;
+				position: absolute;
+				top: 50%;
+				transform:translateY(-50%);
+			}
+			.title-location{
+				color: $grey-inactive;
+				display: inline-block;
+			    font-size: 16px;
+			    font-weight: 400;
+			    margin-left: 40px;
+			    text-align: left;
+			    position: relative;
+			    width: 75%;
+			    height: 45px;
+
+	    		span {
+	    			top: 50%;
+					transform:translateY(-50%);
+	    			position: absolute;
+	    		}
+	    	}    		
+
+    		&:hover{
+    			.fa{
+    				color:$green;
+    			}
+    			.title-location{
+					color:$darked-grey;
+				}
+    		}
+		}
+
+		.config{			
+			color: $grey;
+			display: block;
+			font-size: 16px;
+    		position: absolute;
+    		right: 7px;
+    		text-decoration: none;
+    		top: 5px;
+    		z-index: 2;
+
+    		.tool-tip{
+    			border:1px solid  $light-grey;
+                border-radius: 3px;
+                display: none;
+                position: absolute;
+                font-size: 12px;
+                background-color: $white;
+                top: -15px;
+                padding: 5px;
+                left: 60%;                
+                width: auto;
+                z-index: 3;
+    		}
+
+    		&:hover{
+    			color:$darked-grey;
+
+    			.tool-tip{
+    				display: block;
+    			}
+    		}
+
+		}
+
+
+		.fa-tags{
+			color:$gray-opacity-5;
+			font-size:190px;
+			left: -61px; 
+			position: absolute;
+			top: -17px;
+			z-index: 1;
+		}
+		
+	}
+
+	&.add-location{
+
+		.inner-box{
+			overflow: hidden;
+			
+			&:before{
+				display: none;
+			}
+		}
+		
+
+		.add-text{
+			color:$green ;
+			font-size: 25px; 
+			text-decoration:none;
+
+			padding: 25px 0 26px 38px;
+			position: relative;
+			text-indent: -13px;
+			z-index: 3;
+
+			&:hover{
+				color:$darken-green;
+			}
+		}
+	}
+}

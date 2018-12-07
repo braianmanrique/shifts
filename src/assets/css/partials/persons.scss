@@ -1,0 +1,78 @@
+.person-section{
+	.persons-table{
+		
+	
+		th{
+			background:$darken-green;
+			color: $white;
+			font-size: 13px;
+			font-weight: 700; 
+			text-align:left;
+		}
+		th,
+		td{
+			padding: 10px 5px;
+		}
+		tbody{
+			tr{
+				background:$white;
+				font-size: 13px;
+
+				&:nth-child(odd) {
+					background-color: $white-grey;					
+				}
+
+				a{
+					color: $green;
+					position: relative;
+
+					.tool-tip{
+						color: $black;
+		    			border:1px solid  $light-grey;
+		                border-radius: 3px;
+		                display: none;
+		                position: absolute;
+		                font-size: 10px;
+		                background-color: $white;
+		                top: -17px;
+		                padding: 3px;
+		                left: 50%;                
+		                width: auto;
+		                transform: translateX(-50%);
+		                z-index: 3;
+		    		}
+
+					&:hover{
+						color: $dark-emerald;
+
+						.tool-tip{
+							display: block;
+						}
+					}
+				}
+
+				&.inactive{
+					color: $grey;
+
+					.person-pic{
+						color: $grey;
+					}
+				}
+			}			
+		}
+		.person-name-title{
+			padding-left:5px;
+			padding-right:5px;
+		}
+		.person-name{
+			
+		}
+		.person-pic{
+			color: $dark-grey;
+			font-size: 20px;
+			line-height: 18px;
+			padding-left:10px;
+			padding-right:5px;
+		}
+	}
+}

@@ -1,0 +1,617 @@
+.info-legends {
+    margin: 15px 0;
+
+    p {
+        color: $dark-grey;
+        float: left;
+        font-size: 15px;
+        font-weight: 300;
+        margin-right: 15px;
+
+        span {
+            border-radius: 20px;
+            display: inline-block;
+            height: 8px;
+            margin-right: 5px;
+            width: 8px;
+        }
+    }
+}
+
+.time-daily {
+    .titles-daily-view{
+        padding: 20px 0 25px; 
+        width: 100%;
+
+        .title-one{
+            margin-left: 44px;
+            width: 197px; 
+        }
+    }
+    .time-slider-box-daily {
+        .user-info-daily{
+            width: 220px;
+            a{
+                display: inline-block;
+                text-decoration: none;
+                width: auto;
+            }
+        }
+        .icon-user {
+            color: $dark-grey;
+            height: 41px;
+            width: 41px;            
+
+            .fa {
+                font-size: 27px;
+                margin-left: 5px;
+            }
+        }
+
+        .user-name-box {
+            color: $black;
+            height: 41px;
+            width: auto;
+
+            .nameUser {
+                font-size: 15px;
+
+                .ellipsis-text{
+                    max-width: 155px;
+                    width: auto;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    display: inline-block;
+                }
+
+                .fa{
+                    vertical-align: top;
+                    font-size: 10px;
+                    color: $emerald;
+                }
+            }
+
+            .occupationUser {
+                font-size: 12px;
+                font-weight: 300;
+            }
+        }
+
+        .time-marks{            
+            position: absolute;
+            top: -11px;
+            width: 100%;
+
+            p{
+                font-size: 9px;
+                /*position: absolute;*/
+                position: relative;
+                float: left;
+                width: 36px;
+
+                &.middle-mark{
+                    left: 50%;
+                }
+                &.last-mark{
+                    text-align: right;
+                    right: 0%;
+                }
+            }
+
+            
+        }
+        .time-slider-hour-box {
+            background: url(../img/bkg-timesliders-18p.png) transparent;
+            height: 41px;
+            position: relative;
+            width: 866px;
+
+            &.nobg {
+                background: none transparent;
+            }
+
+            &:last-child {
+                height: 21px;
+            }
+
+            .meterHours {
+                cursor: pointer;
+                display: block;
+                height: 18px;
+                margin: 0;
+                position: absolute;
+                top: 1px;
+                width: auto;
+                opacity: 0.8;
+
+                &:hover{
+                    opacity: 1;
+
+                    .time-info{
+                        display: block;
+                    }
+                }
+
+                .halfHour {
+                    display: block;                    
+                    height: 18px;
+                    float: left;
+                    position: relative;
+                    top: 0;
+                    width: 18px;
+                    z-index: 1;
+
+                    &.first {
+                        &:before {
+                            background-color: inherit;
+                            content: "";
+                            display: block;
+                            height: 20px;
+                            left: 0;
+                            position: absolute;
+                            top: -1px;
+                            width: 2px;
+                        }
+                    }
+
+
+                    &.last {
+                        &:after {
+                            background-color: inherit;
+                            content: "";
+                            display: block;
+                            height: 20px;
+                            position: absolute;
+                            right: 0;
+                            top: -1px;
+                            width: 2px;
+                        }
+                    }
+                    &.hiddenHours{
+                        display: none;
+                    }
+                }               
+
+                .time-info {
+                    /*top: 5px;
+                    left: 5px;
+                    position: absolute;
+                    font-size: 10px;
+                    width: 100%;
+                    z-index: 2;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;*/
+
+                    display: none;
+                    top: 50%;
+                    left: 0%;
+                    position: absolute;
+                    font-size: 10px;
+                    width: auto;
+                    z-index: 2;
+                    background: red;
+                    transform: translateY(-50%);
+                    color: white;
+                    padding: 5px;
+
+
+                    border:1px solid  $light-grey;
+                    border-radius: 5px;                            
+                    font-size: 11px;
+                    background-color: $white;                            
+                    color: $darked-grey;
+
+                    p{
+                        display: block;
+                    }
+
+                    span{
+                        border-radius: 20px;
+                        display: inline-block;
+                        height: 8px;
+                        margin-right: 5px;
+                        width: 8px;
+                    }
+                }
+            }
+        }
+
+        .totalHour {
+            margin-left: 10px;
+            font-size: 14px;
+            font-weight: 700;
+        }
+    }
+}
+
+.time-weekly {
+    background-color: $bg-grey;
+    padding: 0;
+    position: relative;
+    width: 100%;
+
+    .week-box {
+        width: calc(100% - 200px);
+
+        .days-week-box {
+            .day-box {
+                border: 1px solid $light-grey;
+                display: block;
+                float: left;
+                width: calc(14.25% - 2px);
+
+
+                .day-name {
+                    background-color: $darken-green;
+                    padding: 5px 0;
+                    text-align: center;
+
+                    h2 {
+                        color: $white;
+                        font-size: 15px;
+                    }
+                }
+
+                .hours-day {
+                    background: url(../img/bg-day.png) repeat 0 0 $white;
+                    height: 480px;
+                    position: relative;
+
+                    .hours-week-marks{
+                        height: 100%;
+                        left: -25px;
+                        top: 0;
+                        position: absolute;
+                        z-index: 1;
+
+                        p{
+                            color: $dark-grey;
+                            display: block;
+                            font-size: 9px;
+                            font-weight: 300;
+                            height: 20px;
+                            text-align: right;
+                        }
+                    }
+
+                }
+
+                .weekly-assigment-box {
+                    box-sizing: border-box;
+                    float: left;
+                    padding: 1px;
+                    /*position: absolute;*/
+                    position: relative;
+                    width: 10%;
+
+                    height: 480px;
+
+
+                    &:nth-child(n+7){
+                        //display: none;
+                    }                 
+                    
+
+                    .inner-box {
+                        background-color: $light-green-opacity-70;
+                        border: 1px solid $lighter-green-opacity-70;
+                        border-radius: 5px;
+                        box-sizing: border-box;
+                        display: block;
+                        /*height: 100%;*/
+                        padding: 20px 0 0 0;
+                        /*position: relative;*/
+                        position: absolute;
+                        width: 100%;
+                        z-index: 2;
+
+                        cursor: pointer; 
+
+
+                        -webkit-transition: all 0.3s ease-out;
+                        -moz-transition: all 0.3s ease-out;
+                        -o-transition: all 0.3s ease-out;
+                        transition: all 0.3s ease-out;                       
+
+                        &:hover{
+                            background-color: $light-green;
+                            z-index: 10;
+
+                            .tool-tip{
+                                display: block;
+                            }
+                        }
+                    }
+
+                    .tool-tip-over-color{ 
+                        //border:1px solid  $light-grey;                      
+                        border-radius: 5px;                       
+                        position: absolute;
+                        font-size: 10px;
+                        background-color:$grey-lines;                        
+                        padding: 5px;
+                        left: 115%;
+                        white-space: nowrap;                            
+                        width: auto;
+                        z-index: 15;
+                        color: $black;
+
+                        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.04), 0 6px 20px 0 rgba(0, 0, 0, 0.05);
+                        display: none;
+
+                        &.init-hour{
+                            top: -10px;
+                        }
+                        &.end-hour{
+                            bottom: -10px;
+                        }
+
+                        &:before {
+                           content:"";
+                           position: absolute;
+                           right: 100%;
+                           top: 4px;
+                           width: 0;
+                           height: 0;
+                           border-top: 5px solid transparent;
+                           border-right: 8px solid $grey-lines;
+                           border-bottom: 5px solid transparent;
+                        }
+
+
+                    }
+
+                    .hours {
+                        font-size: 10px;
+                        margin-left: 3px;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                        width: 90%;
+                    }
+
+                    .fa.fa-bars {
+                        display: none;
+                        color: $green;
+                        font-size: 12px;
+                        position: absolute;
+                        right: 3px;
+                        top: 5px;
+                    }
+                    .users-in-hours{
+                    	box-sizing: border-box;
+                    	margin-top: 5px;
+                    	padding:0 3px 10px;
+                    	width: 100%;
+                        position: relative;
+
+                        .tool-tip{
+
+                            border:1px solid  $light-grey;
+                            border-radius: 5px;
+                            display: none;
+                            position: absolute;
+                            font-size: 11px;
+                            background-color: $white;
+                            top: -18px;
+                            padding: 5px;
+                            left: 5px;                            
+                            width: 100px;
+                            z-index: 15;
+                            color: $darked-grey;
+
+                            strong{
+                                color: $black;
+                                font-weight: 700;
+                            }
+                        }
+
+                        /*text-overflow: ellipsis;                       
+                        white-space: nowrap;
+                        overflow: hidden;*/
+
+
+
+                    	.fa{
+                    		display: inline-block;
+                    		margin: 0 2px 3px; 
+                    	}
+                    }
+                }
+                
+                .more-week-schedules{
+                    display: none;
+                    box-sizing: border-box;
+                    top: 0;
+                    right: 0;
+                    padding: 1px;
+                    position: absolute;                    
+                    width: 8%;
+
+                    height: 480px;
+
+                    .inner-box {
+                        background-color: $lighter-pink-opacity-70;
+                        border: 1px solid $light-pink-opacity-70;
+                        border-radius: 5px;
+                        box-sizing: border-box;
+                        display: block;
+                        height: 100%;                        
+                        position: absolute;
+                        width: 100%;
+                        z-index: 2;                        
+
+                        &:hover{
+                            background-color: $light-pink-opacity-90;                            
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .user-total-hours-box{
+        background-color: $lighter-grey;
+        height: 505px;
+        width: 200px;
+
+        overflow-y: auto;
+        overflow-x: hidden;
+
+        .hours-box{
+            padding: 10px 5px;
+            width: 100%;
+
+            .info-top-report{
+                display: inline-block;            
+                font-size: 18px;
+                font-weight: 500;
+                margin-bottom: 10px;
+                width: 100%;
+
+                .col-info{
+                    position: relative;
+
+                    .dot{
+                        border-radius: 30px;
+                        display: inline-block;
+                        height: 15px;
+                        width: 15px;
+                        z-index: 1;
+                        position: relative;
+
+                        &:hover + span{
+                            display: block;
+                        }
+                    }
+                    .text{
+                        border:1px solid  $light-grey;
+                        border-radius: 3px;
+                        display: none;
+                        position: absolute;
+                        font-size: 12px;
+                        background-color: $white;
+                        top: 20px;
+                        padding: 5px;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        width: auto;
+                        z-index: 2;
+                    }
+                }
+            }
+            .content-report{
+                display: inline-block;            
+                margin-bottom: 5px;
+                width: 100%;
+
+                .col-info{
+                    font-size: 14px;
+                }
+                .col-total {
+                    font-size: 14px;
+                    font-weight: 500;
+                    line-height: 1.2em;
+                }
+                .nameUser{
+                    font-size: 13px;
+                    font-weight: 500;                    
+                    width: 100%;
+
+                    .fa{
+                        vertical-align: top;
+                        font-size: 10px;
+                        color: $emerald;
+                    }
+                }
+                .occupationUser{
+                    font-size: 12px;
+                }
+                .icon-user{
+                    font-size: 18px;
+                    margin-right: 5px;
+
+                    + span{
+                        width: 125px;                        
+                    }
+                }
+
+            }
+            .col-user{
+                cursor: pointer;
+                display: inline-block;
+                width: 150px;
+
+                & > p{
+                    -webkit-transition: all 0.3s ease-out;
+                    -moz-transition: all 0.3s ease-out;
+                    -o-transition: all 0.3s ease-out;
+                    transition: all 0.3s ease-out;
+                }
+            }
+            .col-info,
+            .col-total{
+                display: inline-block;
+                text-align: center;
+                width: 24px;
+            }
+            .col-info{
+                display: none;
+            }
+        }
+    }
+
+    &.open-report{
+       .week-box{
+            width: calc(100% - 410px);
+
+            .days-week-box{
+                .day-box{
+                    width: calc(14.25% - 2px);
+                }
+            }
+       }
+       .user-total-hours-box{
+            width: 410px;
+
+            .col-user{
+                display: inline-block;
+                width: 170px;
+            }
+
+            .col-info{
+                display: inline-block;
+            }
+       } 
+    }
+}
+
+
+
+/*loop for repeat class position in  daily timesheet*/
+@for $i from 1 through 47 {
+    $left: 18 * $i;
+
+    .pos#{$i} {
+        left: $left + px;
+    }
+}
+
+
+/*loop for repeat class position in  week timesheet*/
+@for $i from 1 through 47 {
+    $top: 10 * $i;
+
+    .posH#{$i} {
+        top: $top + px;
+    }
+}
+
+@for $i from 1 through 48 {
+    $height: 10 * $i;
+
+    .heightSize#{$i} {
+        height: $height + px;
+    }
+}

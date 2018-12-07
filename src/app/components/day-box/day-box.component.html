@@ -1,0 +1,32 @@
+<div class="hours-day clearfix">
+  <ng-container *ngFor="let personWeek of personsSchedules; let w = index">
+    <div class="weekly-assigment-box" *ngIf="checkScheduleWeek(personWeek, dayOfWeek)" [ngClass]="'personColor'+personWeek._id">
+      <ng-container *ngFor="let scheduleweek of personWeek.schedules">
+        <ng-container *ngIf="drawDayinWeek(scheduleweek, dayOfWeek)">
+          <div class="inner-box" [ngClass]="putBoxInDayWeek(scheduleweek)" (click)="onSelectSchedule(scheduleweek, personWeek)">
+            
+            <div class="tool-tip-over-color init-hour">
+              {{convertToHours(scheduleweek.initHour)}} hrs.
+            </div>
+
+            <div class="tool-tip-over-color end-hour">
+              {{getInfoTime(scheduleweek)}} hrs.
+            </div>
+            <div class="users-in-hours clearfix">
+              <div class="tool-tip">
+                <p><strong>{{personWeek.firstname}} {{personWeek.lastname}}</strong></p>
+                <p><strong>Inicio:</strong> {{convertToHours(scheduleweek.initHour)}} hrs.</p>
+                <p><strong>Duración:</strong> {{scheduleweek.duration}} hrs.</p>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </ng-container>
+    </div>
+    <!--<a class="more-week-schedules" *ngIf="w == 5 && checkScheduleWeek(personWeek, dayOfWeek) && (personWeek.schedules.length > 5)">
+      <span class="inner-box">
+
+      </span>
+    </a>-->
+  </ng-container>
+</div>

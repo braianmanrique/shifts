@@ -1,0 +1,42 @@
+<div class="login">
+  <div class="containerLogin">
+    <img src="../../assets/img/logo-white.png" class="logo-login">
+
+    <div class="bodyLogin">
+      <div class="headerImg">
+        <h2>LogIn</h2>
+      </div>
+      <form #loginForm="ngForm" (ngSubmit)="onLogin()">
+        <label for="usernameInput">Usuario</label>
+        <div class="input-group">
+          <span class="input-group-addon">
+            <span class="fa fa-user-circle" aria-hidden="true"></span>
+          </span>
+          <input id="usernameInput" #username="ngModel" [(ngModel)]="user.username" (focus)="toggleDropdown($event)" (blur)="toggleDropdown($event)" class="form-control" required autofocus name="username">
+        </div>
+        <label for="passwordInput">Contraseña</label>
+        <div class="input-group">
+          <span class="input-group-addon">
+            <span class="fa fa-key" aria-hidden="true"></span>
+          </span>
+          <input id="passwordInput" #password="ngModel" [(ngModel)]="user.password" (focus)="toggleDropdown($event)" (blur)="toggleDropdown($event)" class="form-control" required type="password" name="password">
+        </div>
+        <div class="form-group buttonForm">
+          <button class="btn btn-color-green" type="submit" [disabled]="!loginForm.form.valid">
+            Ingresar
+          </button>
+
+        </div>
+      </form>
+      <!--<div class="footerLogin clearfix">
+        <p class="left">
+          <a href="#" >Registrarse</a>
+        </p>
+        <p class="right">
+          <a href="#" >¿Olvido su usuario o contraseña?</a>
+        </p>
+
+      </div>-->
+    </div>
+  </div>
+</div>

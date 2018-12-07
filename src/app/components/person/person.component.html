@@ -1,0 +1,182 @@
+<div class="container clearfix person-section">
+  <div class="top-bar bkg-emerald border-container clearfix">
+    <div class="option-box floatRight">
+      <a href="#" class="click-open" (click)="edit = false; openOverlay(''); false;">
+					<span>Crear persona <i class="fa fa-plus-square-o" aria-hidden="true"></i></span>
+				</a>
+
+    </div>
+  </div>
+  <!--table person begin-->
+  <div class="persons-table border-container">
+    <table width="100%" cellpadding="0" cellspacing="0">
+      <thead>
+        <tr>
+          <th colspan="2">Nombre</th>
+          <th>Usuario</th>
+          <th>Cargo</th>
+          <th>Identificación</th>
+          <th>E-mail</th>
+          <th>Sitio</th>
+          <th>Área</th>
+          <th>Rol</th>
+          <th>Activo</th>
+          <th align="center">Editar</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let person of persons | paginate:{itemsPerPage: PAG_ITEMS_NUMBER, currentPage: page};let i = index" class="{{!person.active  ? 'inactive' : ''}} ">
+          <td class="person-pic">
+            <span class="fa fa-user-circle" aria-hidden="true"></span>
+          </td>
+          <td class="person-name">
+            {{person.firstname}} {{person.lastname}}
+          </td>
+          <td>
+            {{person.username}}
+          </td>
+          <td>
+            {{person.occupation}}
+          </td>
+          <td>
+            {{person.identification}}
+          </td>
+          <td>
+            {{person.email}}
+          </td>
+          <td>
+            {{person.location ? person.location.name : ''}}
+          </td>
+          <td>
+            {{person.category ? person.category.name : ''}}
+          </td>
+          <td>
+            {{person.role ? person.role.name : ''}}
+          </td>
+          <td style="position: relative; width: 80px;">
+            <div class="swicth-active-user">
+              <input [attr.dataIndex]="i" #activePerson="ngModel" [(ngModel)]="person.active" id="{{person._id}}" type="checkbox" name="active" value="active" checked (change)="savePerson(person)">
+              <label for="{{person._id}}" *ngIf="person.active">Activo</label>
+              <label for="{{person._id}}" *ngIf="!person.active">Inactivo</label>
+            </div>
+          </td>
+          <td align="center">
+            <a href="#" (click)="edit = true; openOverlay(person); false;">
+							<i [attr.dataIndex]="i" class="fa fa-pencil-square-o" aria-hidden="true"></i>
+              <span class="tool-tip">Editar</span>
+						</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+</div>
+
+<div class="pagination clearfix">
+    <div class="inner-pagination clearfix">
+      <pagination-controls (pageChange)="page = $event"
+                           previousLabel="Anterior"
+                           nextLabel="Siguiente">
+      </pagination-controls>
+  </div>
+</div>
+
+<!--overlay forms-->
+<div id="overlay" class="overlay show"  *ngIf="overlay">
+
+  <form #personForm="ngForm" (ngSubmit)="closeOverlay(); savePerson(person)">
+    <div class="inner-box">
+
+      <h2 class="title-overlay">{{edit ? ' Actualizar Persona' : 'Crear Persona'}}</h2>
+      <div class="form-new-element clearfix">
+        <p class="info-form"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> campos obligatorios</p>
+        <div class="row-form clearfix">
+          <div class="clearfix">
+            <div class="form-field-input halfField leftHalf">
+
+              <label for="personCategory">Area</label>
+
+              <select id="personCategory" name="personCategory" #personCategory="ngModel" [(ngModel)]="person.category" [disabled]="userLog.role.name=='Jefe'" [compareWith]="compareSelects">
+                <option [ngValue]="null" selected>Seleccionar Area</option>
+                <option *ngFor="let category of categories" [ngValue]="category">
+                    {{category.name}}
+                </option>
+  						</select>
+
+            </div>
+            <div class="form-field-input halfField rightHalf">
+              <label for="personLocation">Sitio</label>
+
+             <select id="personLocation"  name="personLocation" #personLocation="ngModel" [(ngModel)]="person.location" [disabled]="userLog.role.name!='SuperAdmin'" [compareWith]="compareSelects">
+                  <option [ngValue]="null"  selected>Seleccionar Sitio</option>
+  						    <option
+                    *ngFor="let location of locations"
+                    [ngValue]="location">
+                      {{location.name}}
+                  </option>
+
+  						</select>
+
+            </div>
+          </div>
+          <div class="form-field-input halfSizeInner clearfix">
+            <label for="field02">Nombre <i class="fa fa-exclamation-circle" aria-hidden="true"></i></label>
+            <input id="personName" type="" name="personName" #personName="ngModel" [(ngModel)]="person.firstname" />
+            <input id="personLastname" type="" name="personLastname" #personLastname="ngModel" [(ngModel)]="person.lastname" required />
+          </div>
+          <div class="clearfix">
+            <div class="form-field-input halfField leftHalf">
+              <label for="personUsername">Nombre de Usuario</label>
+              <input id="personUsername" type="" name="personUsername" #personUsername="ngModel" [(ngModel)]="person.username" required />
+            </div>
+            <div class="form-field-input halfField rightHalf">
+              <label for="personEmail">Email <i class="fa fa-exclamation-circle" aria-hidden="true"></i></label>
+              <input id="personEmail" type="" name="personEmail" #personEmail="ngModel" [(ngModel)]="person.email" required/>
+            </div>
+          </div>
+          <div class="form-field-input fullsizeInput">
+            <label for="namePerson">Contraseña</label>
+            <input id="namePerson" type="password" name="namePerson" #namePerson="ngModel" [(ngModel)]="person.password" />
+          </div>
+          <div class="clearfix">
+            <div class="form-field-input halfField leftHalf">
+              <label for="personIdent">Identificación <i class="fa fa-exclamation-circle" aria-hidden="true"></i></label>
+              <input id="personIdent" type="" name="personIdent" #personIdent="ngModel" [(ngModel)]="person.identification" required/>
+            </div>
+            <div class="form-field-input halfField rightHalf">
+              <label for="personPhone">Teléfono</label>
+              <input id="personPhone" type="" name="personPhone" #personPhone="ngModel" [(ngModel)]="person.phoneNumber" />
+            </div>
+          </div>
+          <div class="clearfix">
+            <div class="form-field-input halfField leftHalf">
+              <label for="personOcupation">Cargo <i class="fa fa-exclamation-circle" aria-hidden="true"></i></label>
+              <select id="personOcupation" name="personOcupation" #personOcupation="ngModel" [(ngModel)]="person.occupation" required>
+                <option [ngValue]="null" disabled  selected>Seleccionar Cargo</option>
+                <option *ngFor="let ocupation of ocupationsList" [ngValue]="ocupation">{{ocupation}}</option>
+              </select>
+
+            </div>
+            <div class="form-field-input halfField righttHalf">
+              <label for="personRol">Rol <i class="fa fa-exclamation-circle" aria-hidden="true"></i></label>
+              <select id="personRol" name="personRol" #personRol="ngModel" [(ngModel)]="person.role"  [compareWith]="compareSelects" required>
+                <option [ngValue]="null" disabled  selected>Seleccionar Rol</option>
+  						  <option *ngFor="let rol of roles" [ngValue]="rol" >{{rol.name}}</option>
+  						</select>
+            </div>
+          </div>
+        </div>
+        <div class="buttons clearfix">
+          <button class="btn btn-color-grey" (click)="closeOverlay()">
+  					<i class="fa fa-times" aria-hidden="true"></i> Cancelar
+  				</button>
+          <button type="submit" class="btn btn-color-green" [disabled]="!personForm.form.valid">
+  					<i class="fa fa-plus" aria-hidden="true"></i> {{edit ? ' Actualizar Persona' : 'Crear Persona'}}
+  				</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,26 @@
+/*resets and helpers*/
+@import "partials/resets";
+@import "partials/helpers";
+
+/*Vars*/
+@import "partials/vars";
+
+/*Fonts*/
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700');
+
+/*Commons & mixin*/
+@import "partials/commons";
+@import "partials/mixin";
+
+/*main styles*/
+@import "partials/login";
+@import "partials/header";
+@import "partials/overlay";
+
+@import "partials/areas";
+@import "partials/locations";
+@import "partials/persons";
+@import "partials/scheludes";
+
+@import "partials/calendar";
+
